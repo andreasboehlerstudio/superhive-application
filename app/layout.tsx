@@ -17,7 +17,7 @@ const monaSans = localFont({
   display: 'swap',
 });
 
-const siteUrl = 'https://andreasboehlerstudio.github.io/superhive-application/';
+const siteUrl = 'https://superhive.andreasboehler.com/';
 const socialImage = `${siteUrl}og.png`;
 
 export const metadata: Metadata = {

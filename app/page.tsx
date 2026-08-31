@@ -2,9 +2,7 @@ import Image from 'next/image';
 import type { CSSProperties } from 'react';
 import CopyProposal from './copy-proposal';
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-
-const asset = (path: string) => `${basePath}${path}`;
+const asset = (path: string) => path;
 
 const disciplines = [
   'Motion design',
