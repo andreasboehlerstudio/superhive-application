@@ -1,4 +1,10 @@
+import Image from 'next/image';
+import type { CSSProperties } from 'react';
 import CopyProposal from './copy-proposal';
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+const asset = (path: string) => `${basePath}${path}`;
 
 const disciplines = [
   'Motion design',
@@ -11,7 +17,9 @@ const disciplines = [
 
 const productionWork = [
   {
-    image: '/media/work-djbobo.jpg',
+    image: asset('/media/work-djbobo.jpg'),
+    width: 1600,
+    height: 900,
     alt: 'DJ BoBo in front of a golden temple environment from The Great Adventure',
     type: 'Commercial / Tour trailer',
     title: 'DJ BoBo — The Great Adventure',
@@ -19,7 +27,9 @@ const productionWork = [
     href: 'https://andreasboehler.com/dj-bobo-evolut30n-tour.html',
   },
   {
-    image: '/media/work-europapark.jpg',
+    image: asset('/media/work-europapark.jpg'),
+    width: 1280,
+    height: 720,
     alt: 'Golden Europa-Park anniversary mark over a night scene and fireworks',
     type: 'Entertainment / Campaign',
     title: '50 Years Europa-Park',
@@ -27,7 +37,9 @@ const productionWork = [
     href: 'https://andreasboehler.com/50-jahre-europa-park.html',
   },
   {
-    image: '/media/work-tnw.jpg',
+    image: asset('/media/work-tnw.jpg'),
+    width: 1600,
+    height: 900,
     alt: 'TNW mobility website displayed on a tablet and smartphone',
     type: 'Digital experience / Film content',
     title: 'TNW Website',
@@ -37,10 +49,21 @@ const productionWork = [
 ];
 
 export default function Home() {
+  const textureStyle = {
+    '--film-noise-url': `url("${asset('/media/film-noise.png')}")`,
+  } as CSSProperties;
+
   return (
-    <main id="top">
+    <main id="top" style={textureStyle}>
       <section className="hero" aria-labelledby="hero-title">
-        <img className="hero-media" src="/media/brand-hero.webp" alt="Andreas Boehler working with a cinematic camera setup" />
+        <Image
+          className="hero-media"
+          src={asset('/media/brand-hero.webp')}
+          alt="Andreas Boehler working with a cinematic camera setup"
+          fill
+          priority
+          sizes="100vw"
+        />
         <div className="hero-scrim" aria-hidden="true" />
         <div className="film-grain" aria-hidden="true" />
 
@@ -126,7 +149,13 @@ export default function Home() {
           {productionWork.map((project, index) => (
             <a className="work-card" href={project.href} target="_blank" rel="noreferrer" key={project.title}>
               <figure>
-                <img src={project.image} alt={project.alt} loading="lazy" />
+                <Image
+                  src={project.image}
+                  alt={project.alt}
+                  width={project.width}
+                  height={project.height}
+                  sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 34vw"
+                />
                 <figcaption>{String(index + 1).padStart(2, '0')} / 03</figcaption>
               </figure>
               <p>{project.type}</p>
