@@ -37,11 +37,16 @@ jobs:
         shell: bash
         run: |
           mv out "$RUNNER_TEMP/superhive-site"
-          git switch --orphan hostinger
-          cp -a "$RUNNER_TEMP/superhive-site/." .
+          cd "$RUNNER_TEMP/superhive-site"
           touch .nojekyll
+          git init
+          git switch -c hostinger
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git_auth_header="$(git -C "$GITHUB_WORKSPACE" config --local --get http.https://github.com/.extraheader)"
+          git config http.https://github.com/.extraheader "$git_auth_header"
+          unset git_auth_header
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
           git add --all
           git commit -m "Deploy ${GITHUB_SHA}"
           git push --force origin hostinger
