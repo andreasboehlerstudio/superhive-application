@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "preview": "node scripts/preview.mjs",
     "start": "next dev",
     "lint": "eslint . --ignore-pattern .next --ignore-pattern out --ignore-pattern dist --ignore-pattern .pages-preview"
   },

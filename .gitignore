@@ -16,6 +16,9 @@
 /.vinext/
 /out/
 /.pages-preview/
+/research/
+/outputs/
+/scripts/collect-evidence.mjs
 
 # misc
 .DS_Store

@@ -1,278 +1,90 @@
 import Image from 'next/image';
-import type { CSSProperties } from 'react';
 import CopyProposal from './copy-proposal';
+import ProofGallery from './proof-gallery';
+import AnchorExplorer from './anchor-explorer';
 
-const asset = (path: string) => path;
-
-const disciplines = [
-  'Motion design',
-  '3D',
-  'Virtual production',
-  'Camera & light',
-  'VFX',
-  'Art direction',
+const lightViews = [
+  { image: '/media/luxroster-interface.webp', label: 'The workspace', caption: 'The actual LuxRoster interface: native scene lights, direct controls and the wide manager window.' },
+  { image: '/media/luxroster-bulk.webp', label: 'Bulk edit', caption: 'Four lights selected together. Power, exposure, colour and Kelvin controls sit beneath the light list.' },
+  { image: '/media/luxroster-solo.webp', label: 'Solo', caption: 'A soloed light in the real Blender scene. Clearing Solo restores the previous viewport and render visibility.' },
+  { image: '/media/luxroster-world.webp', label: 'World / HDRI', caption: 'The World/HDRI section exposes image loading, rotation and strength. The screenshot shows the controls before an HDRI is loaded.' },
 ];
-
-const productionWork = [
-  {
-    image: asset('/media/work-djbobo.jpg'),
-    width: 1600,
-    height: 900,
-    alt: 'DJ BoBo in front of a golden temple environment from The Great Adventure',
-    type: 'Commercial / Tour trailer',
-    title: 'DJ BoBo — The Great Adventure',
-    note: 'Producer · VFX · 3D · AI-assisted post-production',
-    href: 'https://andreasboehler.com/dj-bobo-evolut30n-tour.html',
-  },
-  {
-    image: asset('/media/work-europapark.jpg'),
-    width: 1280,
-    height: 720,
-    alt: 'Golden Europa-Park anniversary mark over a night scene and fireworks',
-    type: 'Entertainment / Campaign',
-    title: '50 Years Europa-Park',
-    note: 'Post-production · CGI logo animation · VFX · camera',
-    href: 'https://andreasboehler.com/50-jahre-europa-park.html',
-  },
-  {
-    image: asset('/media/work-tnw.jpg'),
-    width: 1600,
-    height: 900,
-    alt: 'TNW mobility website displayed on a tablet and smartphone',
-    type: 'Digital experience / Film content',
-    title: 'TNW Website',
-    note: 'Web design · visual development · moving image content',
-    href: 'https://andreasboehler.com/tnw-website.html',
-  },
+const bookViews = [
+  { image: '/media/book-hard_novel.webp', label: 'Hardcover novel', caption: 'A5 hardcover. Actual render of the generated preset, with separate cover and page geometry.' },
+  { image: '/media/book-hard_album.webp', label: 'Photo album', caption: 'The hardcover album preset. A starting point for editorial and product visualisation.' },
+  { image: '/media/book-hard_comic_case.webp', label: 'Comic case', caption: 'The laminated comic case: generated cover geometry and procedural laminate. No client artwork is bundled.' },
+  { image: '/media/book-hard_reference.webp', label: 'Reference book', caption: 'The thick hardcover reference preset. Page count and binding proportions remain editable.' },
+  { image: '/media/book-hard_slim.webp', label: 'Slim hardcover', caption: 'A slim hardcover configuration from the same procedural generator.' },
+  { image: '/media/book-soft_comic.webp', label: 'Softcover comic', caption: 'A softcover comic preset with real page meshes and independently assigned page-side materials.' },
+  { image: '/media/book-soft_magazine.webp', label: 'Magazine', caption: 'The magazine preset: a thin, flexible-cover starting point.' },
+  { image: '/media/book-soft_paperback.webp', label: 'Paperback', caption: 'The paperback preset, created by the same book generator and animation system.' },
+  { image: '/media/book-soft_thick.webp', label: 'Thick softcover', caption: 'A thick softcover configuration. These are nine rendered presets, not nine unrelated stock models.' },
 ];
+const projects = [
+  { image: 'https://andreasboehler.com/assets/live-desert-mustang.jpg', title: 'Desert Mustang', category: 'Unreal Engine / Automotive study', description: 'An automotive render built around a campaign-style frame: scene, camera, light and finish.', href: 'https://andreasboehler.com/desert-mustang.html', alt: 'Desert Mustang automotive visual from Andreas Boehler’s published portfolio' },
+  { image: 'https://andreasboehler.com/assets/live-mercedes-gt-in-der-salzwuste.jpg', title: 'Mercedes GT / Salt flats', category: 'Unreal Engine 5 / Personal project', description: 'A real-time automotive visual in an unexpected landscape. Environment, lighting and visual direction.', href: 'https://andreasboehler.com/mercedes-gt-in-der-salzwuste.html', alt: 'Mercedes GT in a salt-flat environment from Andreas Boehler’s portfolio' },
+  { image: '/media/work-djbobo.jpg', title: 'DJ BoBo / The Great Adventure', category: 'Entertainment / Production, 3D & VFX', description: 'Producer, special VFX, 3D/motion graphics and AI-assisted post-production for the tour trailer.', href: 'https://andreasboehler.com/dj-bobo-evolut30n-tour.html', alt: 'DJ BoBo in the golden temple environment from The Great Adventure trailer' },
+];
+function Wordmark() {
+  return <a className="wordmark" href="https://andreasboehler.com/" aria-label="Andreas Boehler portfolio"><span>ANDREAS</span><span>BOEHLER</span></a>;
+}
 
 export default function Home() {
-  const textureStyle = {
-    '--film-noise-url': `url("${asset('/media/film-noise.png')}")`,
-  } as CSSProperties;
-
   return (
-    <main id="top" style={textureStyle}>
+    <main id="top">
+      <a className="skip-link" href="#tools">Skip to the products</a>
+      <header className="site-header"><Wordmark /><nav aria-label="Page sections"><a href="#tools">The tools</a><a href="#work">3D work</a><a href="#more-tools">More plugins</a><a href="#proposal">The proposal</a></nav><a className="header-cta" href="https://andreasboehler.com/works.html" target="_blank" rel="noreferrer">Full portfolio <span aria-hidden="true">↗</span></a></header>
+
       <section className="hero" aria-labelledby="hero-title">
-        <Image
-          className="hero-media"
-          src={asset('/media/brand-hero.webp')}
-          alt="Andreas Boehler working with a cinematic camera setup"
-          fill
-          priority
-          sizes="100vw"
-        />
-        <div className="hero-scrim" aria-hidden="true" />
-        <div className="film-grain" aria-hidden="true" />
-
-        <header className="site-header">
-          <a className="wordmark" href="#top" aria-label="Andreas Boehler — back to top">
-            <span>ANDREAS</span><strong>BOEHLER</strong>
-          </a>
-          <nav aria-label="Application sections">
-            <a href="#position">Position</a>
-            <a href="#work">Work</a>
-            <a href="#product">Product</a>
-            <a href="#proposal">Proposal</a>
-          </nav>
-          <a className="header-cta" href="https://andreasboehler.com/works.html" target="_blank" rel="noreferrer">
-            Portfolio <span aria-hidden="true">↘</span>
-          </a>
-        </header>
-
-        <div className="hero-content">
-          <p className="hero-kicker">Superhive creator application / 2026</p>
-          <h1 id="hero-title"><span>Cinematic</span><span>Blender worlds.</span></h1>
-          <div className="hero-bottom">
-            <p>Creating moments,<br />not just assets.</p>
-            <dl>
-              <div><dt>Focus</dt><dd>Atmosphere · Light · Shot design</dd></div>
-              <div><dt>Based</dt><dd>Freiburg · Basel · DACH</dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <div className="hero-counter" aria-hidden="true">01 / 06</div>
+        <div className="hero-topline"><p className="eyebrow">Andreas Boehler / Creator application</p><span>Made for artists. Built in practice.</span></div>
+        <div className="hero-layout"><div className="hero-copy"><h1 id="hero-title">I build tools.<br /><span>And worlds.</span></h1><p className="hero-intro">Three original Blender add-ons. Procedural books. Cinematic 3D. A look inside the things I actually make.</p><a className="round-link" href="#tools">Explore the tools <span aria-hidden="true">↓</span></a></div><div className="hero-board"><a className="hero-product" href="#luxroster"><div className="image-label"><span>01 / LuxRoster</span><span>Actual product UI ↗</span></div><Image src="/media/luxroster-bulk.webp" alt="LuxRoster running in Blender, showing its light table and bulk editing controls" width={1800} height={1060} priority sizes="(max-width: 800px) 100vw, 50vw" /></a><div className="hero-bottom-board"><a className="hero-book" href="#book-rig"><Image src="/media/book-hard_novel.webp" alt="An actual A5 hardcover book generated with Book Rig Studio" width={512} height={512} priority sizes="220px" /><span>02 / Book Rig Studio ↗</span></a><div className="hero-signature"><span>From feeling<br />to frame.</span><p>Code. Geometry.<br />Camera. Light.</p><a href="#work" aria-label="Explore the 3D portfolio">↘</a></div></div></div></div>
+        <div className="hero-foot"><span>Independent creator · Tools & cinematic work</span><span>Superhive / Portfolio & product evidence</span><a href="#tools">Start with the products ↓</a></div>
       </section>
 
-      <div className="discipline-rail" aria-label="Relevant creative disciplines">
-        {disciplines.map((discipline, index) => (
-          <span key={discipline}><b>{String(index + 1).padStart(2, '0')}</b>{discipline}</span>
-        ))}
-      </div>
+      <section className="tool-index section" id="tools" aria-labelledby="tools-title">
+        <div className="section-label"><span>[01] Original Blender tools</span><span>Three different problems. Three working tools.</span></div><div className="section-heading"><h2 id="tools-title">Built to do<br /><em>the work.</em></h2><p>Lighting, procedural geometry and precise object origins. Each product below has its own implementation, version and installation workflow.</p></div>
+        <div className="index-grid"><a href="#luxroster" className="index-card"><span className="micro">01 / Lighting & workflow</span><h3>LuxRoster</h3><p>Every light. One workspace.</p><div className="card-bottom"><span>v1.0.0 · Released</span><b aria-hidden="true">↗</b></div></a><a href="#book-rig" className="index-card"><span className="micro">02 / Modeling & animation</span><h3>Book Rig<br /> Studio</h3><p>Generate the book. Direct the turn.</p><div className="card-bottom"><span>v0.26.0 · Development release</span><b aria-hidden="true">↗</b></div></a><a href="#origin" className="index-card"><span className="micro">03 / Object workflow</span><h3>Origin<br /> Toolkit</h3><p>The right pivot, precisely placed.</p><div className="card-bottom"><span>v1.1.0 · Packaged</span><b aria-hidden="true">↗</b></div></a></div>
+      </section>
 
-      <section className="position section light" id="position" aria-labelledby="position-title">
-        <div className="section-index">[01] Position</div>
-        <div className="position-layout">
-          <div className="section-heading">
-            <p className="eyebrow">From feeling to a usable frame</p>
-            <h2 id="position-title">A filmmaker&apos;s eye.<br /><span>A product builder&apos;s intent.</span></h2>
-          </div>
-          <div className="position-copy">
-            <p className="lead">
-              My edge for Superhive is not “another asset pack.” It is more than ten years
-              of camera, light, VFX, motion, 3D and art direction translated into reusable
-              Blender systems for other visual storytellers.
-            </p>
-            <p>
-              My public portfolio is broader than Blender because my work lives in real
-              productions. The product direction is precise: cinematic scene foundations
-              that help artists arrive at a stronger frame faster — while keeping creative
-              control.
-            </p>
-            <div className="entry-links" aria-label="Portfolio evidence">
-              <a href="https://andreasboehler.com/works.html" target="_blank" rel="noreferrer">Works <span>↘</span></a>
-              <a href="https://andreasboehler.com/services.html#ki-creative-technology" target="_blank" rel="noreferrer">3D & virtual production <span>↘</span></a>
-              <a href="https://www.behance.net/andyboehler" target="_blank" rel="noreferrer">Behance <span>↘</span></a>
-            </div>
-          </div>
-        </div>
-        <div className="brand-strip" aria-label="Selected brands and contexts">
-          <span>Selected contexts</span>
-          <p>Europa-Park</p><p>Warner Bros.</p><p>SAT.1</p><p>Adobe</p><p>BMW</p><p>Roche</p><p>Novartis</p>
-        </div>
+      <section className="product-section dark section" id="luxroster" aria-labelledby="luxroster-title">
+        <div className="section-label"><span>01 / LuxRoster</span><span>Lighting · User interface · Workflow</span></div><div className="product-title"><h2 id="luxroster-title">Every light.<br /><em>One workspace.</em></h2><div><span className="status">Released / 1.0.0</span><p>A Blender-native light manager for Cycles and Eevee. Search a rig, balance its lights and adjust the World from one place.</p></div></div>
+        <ProofGallery id="luxroster-gallery" items={lightViews} kind="interface" />
+        <div className="feature-grid"><article><span>01</span><h3>Find the light.</h3><p>Search by name, filter by type or collection, and group a rig into a readable list.</p></article><article><span>02</span><h3>Change the whole setup.</h3><p>Select multiple lights and edit power, photographic exposure, colour or Kelvin together.</p></article><article><span>03</span><h3>Keep the scene intact.</h3><p>Solo restores previous visibility. Existing scene lights remain native Blender data.</p></article></div>
+        <div className="product-details"><dl><div><dt>Host</dt><dd>Blender 4.2+</dd></div><div><dt>Render engines</dt><dd>Cycles & Eevee</dd></div><div><dt>License</dt><dd>GPL-3.0-or-later</dd></div><div><dt>Dependencies</dt><dd>No external packages or network access</dd></div></dl><div className="product-links"><a className="button light-button" href="https://9791146773595.gumroad.com/l/luxroster" target="_blank" rel="noreferrer">Existing product page <span>↗</span></a><a className="text-link" href="#luxroster-guide">Read the installation & workflow ↓</a></div></div>
+        <details id="luxroster-guide" className="guide"><summary>LuxRoster / Installation, workflow & limits <span aria-hidden="true">+</span></summary><div className="guide-body"><div><h3>Install</h3><ol><li>Download the LuxRoster ZIP from the product page.</li><li>In Blender Preferences, open Get Extensions → Install from Disk.</li><li>Select the ZIP, enable LuxRoster and open the N-sidebar.</li><li>Use the LuxRoster tab, or View → LuxRoster Light Manager for the wide interface.</li></ol></div><div><h3>A practical first pass</h3><p>Search for a light or filter its collection. Check the lights you want to edit together, then apply the bulk setting. Solo a light to inspect its contribution; clear Solo to return to the original visibility state.</p><h3>Scope</h3><p>Works with native Point, Sun, Spot and Area lights. Linked light data appears read-only. The HDRI setup is created only when requested; unrelated World nodes are retained.</p></div></div></details>
+      </section>
+
+      <section className="product-section section book-section" id="book-rig" aria-labelledby="book-title">
+        <div className="section-label"><span>02 / Book Rig Studio</span><span>Procedural geometry · Materials · Animation</span></div><div className="product-title"><h2 id="book-title">Real pages.<br /><em>Made to move.</em></h2><div><span className="status">Development release / 0.26.0</span><p>Real page meshes. Separate page-side materials. Hard and soft covers. A procedural generator with a complete book-turn rig.</p></div></div>
+        <ProofGallery id="book-presets" items={bookViews} kind="presets" />
+        <div className="book-facts"><div><b>09</b><span>Rendered presets</span></div><div><b>0–100</b><span>Master Progress control</span></div><div><b>500</b><span>Printed pages in the documented QA matrix</span></div></div>
+        <div className="book-story"><div><p className="eyebrow">The geometry is the product</p><h3>From a page<br />to a system.</h3></div><div><p>Set a format, page count, cover and binding. Build the book, then drive opening, page turns and closing with one Progress control. Individual page actions and editable full-book animation support a more directed shot.</p><p>A native Book Controls modifier keeps Progress, Max Open Tweak and Back Bulge editable in a portable file saved in master-slider mode, even after the generator is removed.</p><p className="small-note">These images are actual preset renders. The gallery selects presets; it is not a browser simulation of the Blender rig.</p></div></div>
+        <div className="qa-strip"><span className="micro">Documented release QA<br />28 September 2026</span><p><strong>86</strong> properties</p><p><strong>321</strong> setting samples</p><p><strong>231</strong> preview builds</p><p><strong>775</strong> generated-control samples</p></div>
+        <details className="guide"><summary>Book Rig Studio / Compatibility, installation & honest limits <span aria-hidden="true">+</span></summary><div className="guide-body"><div><h3>Version & compatibility</h3><p>Version 0.26.0 targets Blender 4.2–5.1. The documented release run used Blender 5.1.2 on macOS. It does not certify every version or operating system in the target range. Blender 5.2 is excluded from this release.</p><h3>Install & build</h3><ol><li>Remove older copies and install one of the supplied ZIP formats, not both.</li><li>Open N → Book Rig. Pick a preset, then Create / Update Book.</li><li>Use Progress to animate. Rebuild after structural page-count or topology changes.</li></ol></div><div><h3>Portable does not mean every control</h3><p>Save in master-slider mode for add-on-independent Progress control. Rebuilding topology, changing page counts and advanced generator editing still require Book Rig Studio.</p><h3>Boundaries</h3><p>This is deterministic mesh deformation, not cloth simulation or a general collision solver. Extreme curls and manually overlapping turns can intersect. The standard demo needs its relative texture folder; the comic demo uses self-contained procedural materials.</p></div></div></details>
+      </section>
+
+      <section className="product-section section origin-section" id="origin" aria-labelledby="origin-title">
+        <div className="section-label"><span>03 / Origin Toolkit</span><span>Precision · Modeling · Object workflow</span></div><div className="origin-layout"><div><span className="status">Packaged / 1.1.0</span><h2 id="origin-title">Right object.<br /><em>Right origin.</em></h2><p>Move an object’s origin to a precise anchor without visibly moving its geometry. Bottom, centre and top in one click, or any of 27 X/Y/Z combinations.</p><div className="tag-list"><span>Local / World</span><span>Batch objects</span><span>Undo</span><span>Blender 4.2+</span></div><p className="small-note">Also supports the 3D Cursor and selected mesh geometry. Unsupported object types are left unchanged.</p></div><AnchorExplorer /></div>
+        <details className="guide"><summary>Origin Toolkit / Installation & first operation <span aria-hidden="true">+</span></summary><div className="guide-body"><div><h3>Install</h3><p>In Blender Preferences → Get Extensions → Install from Disk, select the Origin Toolkit ZIP. Open the N-sidebar → Item → Origin Toolkit. Version 1.1.0 includes its Extension manifest and GPL-3.0-or-later license.</p></div><div><h3>Place the origin</h3><p>Select supported objects in Object Mode. Use Bottom, Center or Top, or choose Local/World and Min/Center/Max on each axis before Apply Custom Anchor. The operation restores the 3D Cursor and selection and supports Blender Undo. Ctrl + Alt + B performs local bottom-centre placement.</p></div></div></details>
       </section>
 
       <section className="work section dark" id="work" aria-labelledby="work-title">
-        <div className="section-index">[02] Portfolio proof</div>
-        <div className="section-heading work-heading">
-          <div>
-            <p className="eyebrow">Selected work</p>
-            <h2 id="work-title">The frame has to<br /><span>sell the world.</span></h2>
-          </div>
-          <p className="section-note">Real projects from my portfolio. They demonstrate visual judgement, technical range and finish — not marketplace products for resale.</p>
-        </div>
-
-        <div className="work-grid">
-          {productionWork.map((project, index) => (
-            <a className="work-card" href={project.href} target="_blank" rel="noreferrer" key={project.title}>
-              <figure>
-                <Image
-                  src={project.image}
-                  alt={project.alt}
-                  width={project.width}
-                  height={project.height}
-                  sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 34vw"
-                />
-                <figcaption>{String(index + 1).padStart(2, '0')} / 03</figcaption>
-              </figure>
-              <p>{project.type}</p>
-              <h3>{project.title}</h3>
-              <small>{project.note}</small>
-              <span className="card-arrow" aria-hidden="true">↘</span>
-            </a>
-          ))}
-        </div>
+        <div className="section-label"><span>[02] 3D & production work</span><a href="https://www.behance.net/andyboehler" target="_blank" rel="noreferrer">More on Behance ↗</a></div><div className="section-heading"><h2 id="work-title">The eye behind<br /><em>the tools.</em></h2><p>My work also lives outside the add-on panel: automotive scenes in Unreal Engine and 3D/VFX inside entertainment productions. Each case links to its original project.</p></div>
+        <div className="work-grid">{projects.map((project, i) => <article className="work-card" key={project.title}><a className="work-image" href={project.href} target="_blank" rel="noreferrer"><Image src={project.image} alt={project.alt} width={1920} height={1080} sizes="(max-width: 800px) 100vw, 80vw" /><span>View original project ↗</span></a><div className="work-caption"><span className="micro">0{i + 1} / {project.category}</span><h3><a href={project.href} target="_blank" rel="noreferrer">{project.title} ↗</a></h3><p>{project.description}</p></div></article>)}</div>
+        <p className="small-note work-note">Automotive images demonstrate scene and visual development, not ownership of the vehicle designs or proof that the car meshes were modeled from scratch. Client work is shown as production evidence and is not included in any saleable asset.</p>
+        <a className="context-work" href="https://andreasboehler.com/50-jahre-europa-park.html" target="_blank" rel="noreferrer"><Image src="/media/work-europapark.jpg" alt="50 Years Europa-Park campaign frame" width={1280} height={720} sizes="240px" /><div><span className="micro">Additional production context</span><h3>50 Years Europa-Park</h3><p>Campaign production, camera and post-production.</p></div><span aria-hidden="true">↗</span></a>
       </section>
 
-      <section className="bridge section light" aria-labelledby="bridge-title">
-        <div className="section-index">[03] Why this translates</div>
-        <div className="bridge-layout">
-          <div className="bridge-title">
-            <p>Moment</p><p>Motion</p><p>Meaning</p>
-          </div>
-          <div className="evidence-list">
-            <h2 id="bridge-title">What I bring to a Superhive shop</h2>
-            <article><span>01</span><div><h3>Cinematic judgement</h3><p>Camera, light, composition and atmosphere are the product advantage — not surface decoration.</p></div></article>
-            <article><span>02</span><div><h3>3D + VFX context</h3><p>3D, motion design, CGI, VFX and virtual production already sit inside my wider production practice.</p></div></article>
-            <article><span>03</span><div><h3>Systems thinking</h3><p>I build repeatable looks, workflows and visual systems that can become useful tools for other artists.</p></div></article>
-            <article><span>04</span><div><h3>Professional delivery</h3><p>Clear presentation, quality control, documentation and support are part of the product itself.</p></div></article>
-          </div>
-        </div>
-      </section>
-
-      <section className="product section dark" id="product" aria-labelledby="product-title">
-        <div className="section-index">[04] First product direction</div>
-        <div className="section-heading product-heading">
-          <p className="eyebrow">A proposal with a clear shelf position</p>
-          <h2 id="product-title">Cinematic scene<br /><span>systems / Volume 01</span></h2>
-        </div>
-
-        <div className="product-layout">
-          <div className="product-poster" aria-label="Concept card for Cinematic Scene Systems, Volume 01">
-            <div className="poster-top"><span>Andreas Boehler</span><span>System / 001</span></div>
-            <div className="poster-aperture" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
-            <h3>From<br />feeling<br />to frame.</h3>
-            <div className="poster-bottom"><span>Blender</span><span>Scene · Light · Camera</span><span>2026</span></div>
-          </div>
-
-          <div className="product-spec">
-            <p className="product-summary">
-              A modular, render-ready Blender scene system for filmmakers, motion designers
-              and 3D artists who want cinematic depth without rebuilding every shot from zero.
-            </p>
-            <dl>
-              <div><dt>Product type</dt><dd>Original Blender asset pack</dd></div>
-              <div><dt>Categories</dt><dd>Scenes & environments · materials · lighting</dd></div>
-              <div><dt>Price range</dt><dd>$34–$59, depending on final scope</dd></div>
-              <div><dt>Audience</dt><dd>Filmmakers · motion designers · 3D generalists</dd></div>
-            </dl>
-            <div className="in-the-box">
-              <h3>Planned package</h3>
-              <ul>
-                <li><b>06</b> modular atmospheric scene foundations</li>
-                <li><b>18</b> original surface and material variants</li>
-                <li><b>12</b> camera and composition starting points</li>
-                <li><b>03</b> lighting families with controlled variations</li>
-                <li><b>05+</b> finished example scenes and 2:1 product renders</li>
-                <li><b>01</b> concise video quick-start plus written guide</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="standards section light" id="standards" aria-labelledby="standards-title">
-        <div className="section-index">[05] Delivery standard</div>
-        <div className="standards-layout">
-          <div className="section-heading">
-            <p className="eyebrow">Built for QA, not only a beauty render</p>
-            <h2 id="standards-title">Ready to open.<br /><span>Ready to render.</span></h2>
-          </div>
-          <div className="checklist">
-            <p><span>01</span> Current official Blender version at release</p>
-            <p><span>02</span> Logical English naming throughout</p>
-            <p><span>03</span> Packed textures and clean dependencies</p>
-            <p><span>04</span> Asset Browser metadata and useful previews</p>
-            <p><span>05</span> Render-ready example scenes</p>
-            <p><span>06</span> Original, IP-safe commercial content only</p>
-            <p><span>07</span> Five or more 2:1 product images</p>
-            <p><span>08</span> Clear docs and support within 72 hours</p>
-          </div>
-        </div>
-        <div className="ip-note">
-          <b>Marketplace promise</b>
-          <p>Client and portfolio work shown here is evidence of craft only; it will never be packaged or resold. Every commercial release will be newly created, original and cleared for redistribution.</p>
-          <a href="https://support.superhivemarket.com/article/253-general-product-guidelines-for-uploading-products" target="_blank" rel="noreferrer">Superhive product guidelines ↘</a>
-        </div>
+      <section className="more-tools section" id="more-tools" aria-labelledby="more-title">
+        <div className="section-label"><span>[03] Beyond Blender</span><span>Two more tools I build</span></div><div className="section-heading"><h2 id="more-title">Less friction.<br /><em>More making.</em></h2><p>Two After Effects scripts from the same practice. Included to show the wider toolset; these are separate from the Blender products proposed for Superhive.</p></div>
+        <div className="more-grid"><article><div className="media-head"><span>Adobe After Effects</span><span>Development preview / 0.1.0</span></div><video controls playsInline preload="none" poster="/media/ae-diff.webp" aria-label="AE Diff product presentation"><source src="/media/ae-diff-demo.mp4" type="video/mp4" /><a href="/media/ae-diff-demo.mp4">Open the AE Diff presentation</a></video><div className="more-copy"><h3>AE Diff</h3><p>See what changed between project versions: compositions, layers, expressions, keyframes and timing, with before/after values and a change map.</p><span className="micro">Local semantic comparison / AEP workflow</span><details><summary>Workflow & limits</summary><p>A project-specific reference is created or restored automatically. Compare the current project or two saved AEP files, reveal an affected layer and export a text report. Persistent layer IDs require After Effects 2022+. Imported projects may receive new IDs; this compares authoring state, not rendered pixels.</p></details></div></article><article><div className="media-head"><span>Adobe After Effects</span><span>Development preview / 0.1</span></div><video controls playsInline preload="none" poster="/media/culprit.webp" aria-label="Culprit product film"><source src="/media/culprit-demo.mp4" type="video/mp4" /><a href="/media/culprit-demo.mp4">Open the Culprit product film</a></video><div className="more-copy"><h3>Culprit</h3><p>Find the likely layer or effect behind a reproducible single-frame render failure using controlled isolation on a disposable composition copy.</p><span className="micro">Render diagnostics / Supplied product film</span><details><summary>Workflow & limits</summary><p>Verify the same failing frame twice, split enabled layers into test groups, then investigate the isolated layer’s effects. The source composition is preserved. Intermittent failures and interactions are reported rather than forced into a single result. It cannot recover from application crashes, GPU resets or operating-system termination.</p></details></div></article></div>
       </section>
 
       <section className="proposal section dark" id="proposal" aria-labelledby="proposal-title">
-        <div className="section-index">[06] Paste-ready proposal</div>
-        <div className="proposal-layout">
-          <div className="section-heading">
-            <p className="eyebrow">Clear, thorough and to the point</p>
-            <h2 id="proposal-title">The application<br /><span>in one paragraph.</span></h2>
-          </div>
-          <CopyProposal />
-        </div>
+        <div className="section-label"><span>[04] The Superhive proposal</span><span>Products shown above. A specific first release.</span></div><div className="proposal-layout"><div><p className="eyebrow">Start with a focused tool</p><h2 id="proposal-title">First, the lights.<br /><em>Then, the library.</em></h2><p>My proposed first submission is LuxRoster: a focused lighting workflow tool with an existing installable release. Origin Toolkit and Book Rig Studio give the shop a clear path into object workflow and procedural animation.</p><div className="price-plan"><span className="micro">Indicative Superhive pricing / proposal only</span><dl><div><dt>LuxRoster</dt><dd>US$9–19</dd></div><div><dt>Origin Toolkit</dt><dd>US$5–9</dd></div><div><dt>Book Rig Studio</dt><dd>US$29–49</dd></div></dl></div></div><CopyProposal /></div><div className="release-note"><span className="micro">Release approach</span><p>Original implementation, GPL source for Blender add-ons, clear version support, written installation and usage instructions, feature images and issue reporting. Each product will go through Superhive’s separate product review; this portfolio does not imply marketplace approval.</p></div>
       </section>
-
-      <section className="final-cta section light" aria-labelledby="final-title">
-        <p className="eyebrow">Next scene</p>
-        <h2 id="final-title">Let the work earn<br /><span>the second look.</span></h2>
-        <p>I am ready to turn this direction into a clean first product and put it through Superhive quality review.</p>
-        <div className="hero-actions">
-          <a className="button button-dark" href="https://andreasboehler.com/works.html" target="_blank" rel="noreferrer">View full portfolio <span aria-hidden="true">↘</span></a>
-          <a className="button button-outline" href="#proposal">Read proposal <span aria-hidden="true">↑</span></a>
-        </div>
-      </section>
-
-      <footer>
-        <a className="wordmark" href="#top"><span>ANDREAS</span><strong>BOEHLER</strong></a>
-        <p>Superhive creator application / 2026</p>
-        <a href="https://andreasboehler.com/" target="_blank" rel="noreferrer">andreasboehler.com ↘</a>
-      </footer>
+      <section className="closing section"><p className="eyebrow">Andreas Boehler / Independent creator</p><h2>Take a closer look.<br /><em>It’s all in the work.</em></h2><div className="closing-links"><a className="button" href="#luxroster">Revisit the product evidence <span>↑</span></a><a className="text-link" href="https://andreasboehler.com/contact.html" target="_blank" rel="noreferrer">Get in touch ↗</a></div></section>
+      <footer><Wordmark /><span>Original tools & cinematic work / 2026</span><div><a href="https://andreasboehler.com/impressum.html">Legal</a><a href="https://andreasboehler.com/datenschutz.html">Privacy</a><a href="https://andreasboehler.com/">Portfolio ↗</a></div></footer>
     </main>
   );
 }

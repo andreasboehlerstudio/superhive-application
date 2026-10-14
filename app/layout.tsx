@@ -18,25 +18,26 @@ const monaSans = localFont({
 });
 
 const siteUrl = 'https://superhive.andreasboehler.com/';
-const socialImage = `${siteUrl}og.png`;
+const socialImage = `${siteUrl}media/luxroster-bulk.webp`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Cinematic Blender Worlds — Andreas Boehler for Superhive',
-  description: 'Andreas Boehler’s Superhive creator application: cinematic portfolio proof, 3D and VFX context, a focused first Blender product and a QA-ready delivery plan.',
+  title: 'Original Blender Tools & 3D Work — Andreas Boehler',
+  description: 'Explore LuxRoster, Book Rig Studio and Origin Toolkit, with real product interfaces, nine rendered book presets, cinematic 3D work and two After Effects scripts by Andreas Boehler.',
+  alternates: { canonical: siteUrl },
   icons: { icon: `${siteUrl}favicon.svg` },
   openGraph: {
     type: 'website',
     url: siteUrl,
     siteName: 'Andreas Boehler — Superhive Creator Application',
-    title: 'Cinematic Blender Worlds — Andreas Boehler for Superhive',
-    description: 'Cinematic portfolio proof, 3D and VFX context, a focused first Blender product and a QA-ready delivery plan.',
-    images: [{ url: socialImage, width: 1200, height: 630, alt: 'Cinematic Blender Worlds — Andreas Boehler creator application' }],
+    title: 'I Build Tools. And Worlds. — Andreas Boehler',
+    description: 'Three original Blender add-ons, real interfaces, procedural books and cinematic 3D. Superhive creator portfolio.',
+    images: [{ url: socialImage, width: 1800, height: 1060, alt: 'LuxRoster running in Blender — original tool by Andreas Boehler' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cinematic Blender Worlds — Andreas Boehler for Superhive',
-    description: 'Cinematic portfolio proof, 3D and VFX context, a focused first Blender product and a QA-ready delivery plan.',
+    title: 'I Build Tools. And Worlds. — Andreas Boehler',
+    description: 'Original Blender add-ons, actual product evidence and cinematic 3D work.',
     images: [socialImage],
   },
 };
